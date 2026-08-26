@@ -1,7 +1,7 @@
 import connectMongo from "../lib/Mongoose";
 import User from "../models/User";
 import DeveloperCard from "@/components/DeveloperCard";
-
+export const dynamic = "force-dynamic";
 export const revalidate=60;
 const Page=async()=>{
   await connectMongo();
