@@ -11,6 +11,8 @@ import User from "./models/User";
 import Blog from "./models/Blog";
 import Community from "./models/Community";
 
+export const dynamic = "force-dynamic";
+
 export const revalidate = 60;
 
 const Page = async () => {
