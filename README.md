@@ -1,36 +1,182 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Developer Community Platform
+    A full-stack developer community platform built with Next.js 16, MongoDB Atlas, NextAuth and Tailwind CSS.
+    This platform allows developers to create profiles, publish blogs,join communities, and connect with other developers through a modern and responsive web application. 
+Features:
+  Authentication
+   -Google OAuth login.
+   -Github OAuth login,
+   -Persistent user sessions.
+   -Protected routes and API endpoints.
+ Developer Profiles
+   -public dev profiles.
+   -Edit profile
+   -bio/headline/github and linkedIn URLs.
+   -see joined communities and published posts.
+ Blogs
+   -Create,Edit,delete,view blogs.
+   -Blog ownership protection.
+   -Reading time estimation,metadata generation.
+   -ISR 
+ Communities
+   -Browse communities.
+   -join,leave community.
+   -related blogs.
+ Experience:
+   -Responsive design for all screen sizes(mobile,desktop,tablet).
+   -loading,error and not-found pages.
+   -Consistent UI and user-friendly design.
 
-## Getting Started
+Tech Stack:
+ Backend
+   -Next.js
+   -NextAuth.js
+ Frontend
+   -Next.js 16 App Router.
+   -React
+   -Typescript
+   -Tailwind CSS.
+ Database
+   -MongoDB Atlas.
+   -Mongoose
+ Authentication
+   -Google/Github OAuth.
+ Deployment
+   -Vercel.
 
-First, run the development server:
+Local Installation:
+1-clone repository
+ git clone https://github.com/jackysaliba1/dev-Community-platform.git
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2-
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3-Create the environment file: .env.local
+Add: MONGODB_URI=
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+AUTH_SECRET=
 
-## Learn More
+AUTH_GOOGLE_ID=
+AUTH_GOOGLE_SECRET=
 
-To learn more about Next.js, take a look at the following resources:
+AUTH_GITHUB_ID=
+AUTH_GITHUB_SECRET=   ...
+4-Run development server:npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+MongoDB Atlas Setup
+  Create a cluster:
+   -create a mongodb account.
+   -create a new cluster.
+   -create a db user.
+   -Add IP address.
+   -Copy connection string and paste it into .env.local
+Google OAuth Configuration
+ Create credentials:
+  -open cloud console.
+  -create a project
+  -create OAuth client credentials.
+  links: http://localhost:3000
+  -http://localhost:3000/api/auth/callback/google
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Github OAuth Configuration
+  -open github developer settings.
+  -create new OAuth app
+  links: http://localhost:3000
+  callbackURL: http://localhost:3000/api/callback/github
+  then copy the client id and secret into .env.local.
 
-## Deploy on Vercel
+Rendering Strategy:
+  The application uses a combination of Next.js rendering strategy.
+  Server components:
+  used for:-blogs,communities,profile and home pages.
+   This reduces client-side javascript and improves the performance.
+  Client Components:
+  Used only where interactivity is required:
+    -Authentication buttons
+    -Community join/leave actions
+    -Profile,Blog forms
+    -Navigation menu
+  ISR:
+  Blog listing uses Increment static regeneration:export const revalidate=60;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  Database models:
+   User Model:stores information about developers.
+       name
+       username
+       email
+       image
+       headline
+       bio
+       skills
+       githubURL
+       linkedInURL
+       providerIds 
+  Blog Model:Stores published blogs and posts.
+       title
+       slug
+       excerpt
+       content
+       coverImage
+       tags
+       author
+       status
+       publishedAt -So a blog belongs to one User-
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  Community Model:Stores the communities.
+       name
+       slug
+       description
+       category
+       members
+-so a community can have many members-(one-to-many relationship).
+
+
+Security and Authorization:
+  The application protects sensitive actions using session-based authentication.
+
+Authenticated users can:
+
+Create blogs
+Edit their own blogs
+Delete their own blogs
+Edit their profile
+Join / Leave communities
+
+Ownership checks prevent users from modifying content that does not belong to them(very important)!
+
+
+Deployment:
+ link:
+ github repos:
+
+
+ Testing:
+the project was tested using: 
+  -thunder client.
+  -Responsive broser testing.
+  verification:
+  -authentication.
+  -CRUD.
+  -Community membership
+  -loading and error states.
+  -mobile responsiveness.
+
+ Future improvements:
+  -Comments on blogs.
+  -Notifications for users.
+  -Profile avatars upload.
+  -Moderators.
+
+
+![](app/screenshots/about mobile.png)
+![](app/screenshots/communities page.png)
+![](app/screenshots/community details desktop.png)
+![](app/screenshots/developers desktop.png)
+![](app/screenshots/devs mob.png)
+![](app/screenshots/get all blogs testing.png)
+![](app/screenshots/get blog by slug test.png)
+![](app/screenshots/get notfound blog.png)
+![](app/screenshots/home mobile.png)
+![](app/screenshots/invalid URL.png)
+![](app/screenshots/login mob.png)
+![](app/screenshots/navbar mob.png)
+![](app/screenshots/not my blog testing.png)
