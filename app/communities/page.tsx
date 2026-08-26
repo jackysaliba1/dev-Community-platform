@@ -5,6 +5,7 @@ import User from "@/app/models/User";
 import { auth } from "@/auth";
 
 export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function CommunitiesPage() {
 
