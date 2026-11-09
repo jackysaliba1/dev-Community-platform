@@ -44,13 +44,10 @@ Tech Stack:
    -Vercel.
 
 Local Installation:
-1-clone repository
+-clone repository
  git clone https://github.com/jackysaliba1/dev-Community-platform.git
 
-2-
-
-
-3-Create the environment file: .env.local
+-Create the environment file: .env.local
 Add: MONGODB_URI=
 
 AUTH_SECRET=
